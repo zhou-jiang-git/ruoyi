@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.activiti.mapper.ProcessGatewayConfigMapper">
+    
+    <resultMap type="ProcessGatewayConfig" id="ProcessGatewayConfigResult">
+        <result property="processGatewayId"    column="process_gateway_id"    />
+        <result property="processId"    column="process_id"    />
+        <result property="gatewayKey"    column="gateway_key"    />
+        <result property="gatewayWhere"    column="gateway_where"    />
+        <result property="nextNodeKey"    column="next_node_key"    />
+        <result property="nextNodeName"    column="next_node_name"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="updateUser"    column="update_user"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateDate"    column="update_date"    />
+    </resultMap>
+
+    <sql id="selectProcessGatewayConfigVo">
+        select process_gateway_id, process_id, gateway_key, gateway_where, next_node_key, next_node_name, create_user, update_user, create_date, update_date from process_gateway_config
+    </sql>
+
+    <select id="selectProcessGatewayConfigList" parameterType="ProcessGatewayConfig" resultMap="ProcessGatewayConfigResult">
+        <include refid="selectProcessGatewayConfigVo"/>
+        <where>  
+            <if test="processId != null  and processId != ''"> and process_id = #{processId}</if>
+            <if test="gatewayKey != null  and gatewayKey != ''"> and gateway_key = #{gatewayKey}</if>
+            <if test="gatewayWhere != null  and gatewayWhere != ''"> and gateway_where = #{gatewayWhere}</if>
+            <if test="nextNodeKey != null  and nextNodeKey != ''"> and next_node_key = #{nextNodeKey}</if>
+            <if test="nextNodeName != null  and nextNodeName != ''"> and next_node_name like concat('%', #{nextNodeName}, '%')</if>
+            <if test="createUser != null "> and create_user = #{createUser}</if>
+            <if test="updateUser != null "> and update_user = #{updateUser}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if>
+            <if test="updateDate != null "> and update_date = #{updateDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectProcessGatewayConfigById" parameterType="String" resultMap="ProcessGatewayConfigResult">
+        <include refid="selectProcessGatewayConfigVo"/>
+        where process_gateway_id = #{processGatewayId}
+    </select>
+        
+    <insert id="insertProcessGatewayConfig" parameterType="ProcessGatewayConfig">
+        insert into process_gateway_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="processGatewayId != null  and processGatewayId != ''">process_gateway_id,</if>
+            <if test="processId != null  and processId != ''">process_id,</if>
+            <if test="gatewayKey != null  and gatewayKey != ''">gateway_key,</if>
+            <if test="gatewayWhere != null  and gatewayWhere != ''">gateway_where,</if>
+            <if test="nextNodeKey != null  and nextNodeKey != ''">next_node_key,</if>
+            <if test="nextNodeName != null  and nextNodeName != ''">next_node_name,</if>
+            <if test="createUser != null ">create_user,</if>
+            <if test="updateUser != null ">update_user,</if>
+            <if test="createDate != null ">create_date,</if>
+            <if test="updateDate != null ">update_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="processGatewayId != null  and processGatewayId != ''">#{processGatewayId},</if>
+            <if test="processId != null  and processId != ''">#{processId},</if>
+            <if test="gatewayKey != null  and gatewayKey != ''">#{gatewayKey},</if>
+            <if test="gatewayWhere != null  and gatewayWhere != ''">#{gatewayWhere},</if>
+            <if test="nextNodeKey != null  and nextNodeKey != ''">#{nextNodeKey},</if>
+            <if test="nextNodeName != null  and nextNodeName != ''">#{nextNodeName},</if>
+            <if test="createUser != null ">#{createUser},</if>
+            <if test="updateUser != null ">#{updateUser},</if>
+            <if test="createDate != null ">#{createDate},</if>
+            <if test="updateDate != null ">#{updateDate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProcessGatewayConfig" parameterType="ProcessGatewayConfig">
+        update process_gateway_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="processId != null  and processId != ''">process_id = #{processId},</if>
+            <if test="gatewayKey != null  and gatewayKey != ''">gateway_key = #{gatewayKey},</if>
+            <if test="gatewayWhere != null  and gatewayWhere != ''">gateway_where = #{gatewayWhere},</if>
+            <if test="nextNodeKey != null  and nextNodeKey != ''">next_node_key = #{nextNodeKey},</if>
+            <if test="nextNodeName != null  and nextNodeName != ''">next_node_name = #{nextNodeName},</if>
+            <if test="createUser != null ">create_user = #{createUser},</if>
+            <if test="updateUser != null ">update_user = #{updateUser},</if>
+            <if test="createDate != null ">create_date = #{createDate},</if>
+            <if test="updateDate != null ">update_date = #{updateDate},</if>
+        </trim>
+        where process_gateway_id = #{processGatewayId}
+    </update>
+
+    <delete id="deleteProcessGatewayConfigById" parameterType="String">
+        delete from process_gateway_config where process_gateway_id = #{processGatewayId}
+    </delete>
+
+    <delete id="deleteProcessGatewayConfigByIds" parameterType="String">
+        delete from process_gateway_config where process_gateway_id in 
+        <foreach item="processGatewayId" collection="array" open="(" separator="," close=")">
+            #{processGatewayId}
+        </foreach>
+    </delete>
+
+	<insert id="insertProcessGatewayConfigBatch" parameterType="ProcessGatewayConfig">
+		INSERT INTO process_gateway_config (
+		process_gateway_id,
+		process_id,
+		gateway_key,
+		gateway_where,
+		next_node_key,
+		next_node_name,
+		create_user,
+		update_user,
+		create_date,
+		update_date
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.processGatewayId},
+			#{item.processId},
+			#{item.gatewayKey},
+			#{item.gatewayWhere},
+			#{item.nextNodeKey},
+			#{item.nextNodeName},
+			#{item.createUser},
+			#{item.updateUser},
+			#{item.createDate},
+			#{item.updateDate}
+			)
+		</foreach>
+	</insert>
+
+</mapper>

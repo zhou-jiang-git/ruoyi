@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.activiti.mapper.ProcessTaskConfigMapper">
+    
+    <resultMap type="ProcessTaskConfig" id="ProcessTaskConfigResult">
+        <result property="processTaskId"    column="process_task_id"    />
+        <result property="processId"    column="process_id"    />
+        <result property="taskNum"    column="task_num"    />
+        <result property="taskKey"    column="task_key"    />
+        <result property="taskName"    column="task_name"    />
+        <result property="taskType"    column="task_type"    />
+        <result property="taskUserType"    column="task_user_type"    />
+        <result property="taskSignType"    column="task_sign_type"    />
+        <result property="taskRejectType"    column="task_reject_type"    />
+        <result property="taskUsers"    column="task_users"    />
+        <result property="taskPosts"    column="task_posts"    />
+        <result property="taskRoles"    column="task_roles"    />
+        <result property="taskButtons"    column="task_buttons"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="updateUser"    column="update_user"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateDate"    column="update_date"    />
+    </resultMap>
+
+    <sql id="selectProcessTaskConfigVo">
+        select process_task_id, process_id, task_num, task_key, task_name, task_type, task_user_type, task_sign_type, task_reject_type, task_users, task_posts, task_roles, task_buttons, create_user, update_user, create_date, update_date from process_task_config
+    </sql>
+
+    <select id="selectProcessTaskConfigList" parameterType="ProcessTaskConfig" resultMap="ProcessTaskConfigResult">
+        <include refid="selectProcessTaskConfigVo"/>
+        <where>  
+            <if test="processId != null  and processId != ''"> and process_id = #{processId}</if>
+            <if test="taskNum != null "> and task_num = #{taskNum}</if>
+            <if test="taskKey != null  and taskKey != ''"> and task_key = #{taskKey}</if>
+            <if test="taskName != null  and taskName != ''"> and task_name like concat('%', #{taskName}, '%')</if>
+            <if test="taskType != null  and taskType != ''"> and task_type = #{taskType}</if>
+            <if test="taskUserType != null  and taskUserType != ''"> and task_user_type = #{taskUserType}</if>
+            <if test="taskSignType != null  and taskSignType != ''"> and task_sign_type = #{taskSignType}</if>
+            <if test="taskRejectType != null  and taskRejectType != ''"> and task_reject_type = #{taskRejectType}</if>
+            <if test="taskUsers != null  and taskUsers != ''"> and task_users = #{taskUsers}</if>
+            <if test="taskPosts != null  and taskPosts != ''"> and task_posts = #{taskPosts}</if>
+            <if test="taskRoles != null  and taskRoles != ''"> and task_roles = #{taskRoles}</if>
+            <if test="taskButtons != null  and taskButtons != ''"> and task_buttons = #{taskButtons}</if>
+            <if test="createUser != null "> and create_user = #{createUser}</if>
+            <if test="updateUser != null "> and update_user = #{updateUser}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if>
+            <if test="updateDate != null "> and update_date = #{updateDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectProcessTaskConfigById" parameterType="String" resultMap="ProcessTaskConfigResult">
+        <include refid="selectProcessTaskConfigVo"/>
+        where process_task_id = #{processTaskId}
+    </select>
+        
+    <insert id="insertProcessTaskConfig" parameterType="ProcessTaskConfig">
+        insert into process_task_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="processTaskId != null  and processTaskId != ''">process_task_id,</if>
+            <if test="processId != null  and processId != ''">process_id,</if>
+            <if test="taskNum != null ">task_num,</if>
+            <if test="taskKey != null  and taskKey != ''">task_key,</if>
+            <if test="taskName != null  and taskName != ''">task_name,</if>
+            <if test="taskType != null  and taskType != ''">task_type,</if>
+            <if test="taskUserType != null  and taskUserType != ''">task_user_type,</if>
+            <if test="taskSignType != null  and taskSignType != ''">task_sign_type,</if>
+            <if test="taskRejectType != null  and taskRejectType != ''">task_reject_type,</if>
+            <if test="taskUsers != null  and taskUsers != ''">task_users,</if>
+            <if test="taskPosts != null  and taskPosts != ''">task_posts,</if>
+            <if test="taskRoles != null  and taskRoles != ''">task_roles,</if>
+            <if test="taskButtons != null  and taskButtons != ''">task_buttons,</if>
+            <if test="createUser != null ">create_user,</if>
+            <if test="updateUser != null ">update_user,</if>
+            <if test="createDate != null ">create_date,</if>
+            <if test="updateDate != null ">update_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="processTaskId != null  and processTaskId != ''">#{processTaskId},</if>
+            <if test="processId != null  and processId != ''">#{processId},</if>
+            <if test="taskNum != null ">#{taskNum},</if>
+            <if test="taskKey != null  and taskKey != ''">#{taskKey},</if>
+            <if test="taskName != null  and taskName != ''">#{taskName},</if>
+            <if test="taskType != null  and taskType != ''">#{taskType},</if>
+            <if test="taskUserType != null  and taskUserType != ''">#{taskUserType},</if>
+            <if test="taskSignType != null  and taskSignType != ''">#{taskSignType},</if>
+            <if test="taskRejectType != null  and taskRejectType != ''">#{taskRejectType},</if>
+            <if test="taskUsers != null  and taskUsers != ''">#{taskUsers},</if>
+            <if test="taskPosts != null  and taskPosts != ''">#{taskPosts},</if>
+            <if test="taskRoles != null  and taskRoles != ''">#{taskRoles},</if>
+            <if test="taskButtons != null  and taskButtons != ''">#{taskButtons},</if>
+            <if test="createUser != null ">#{createUser},</if>
+            <if test="updateUser != null ">#{updateUser},</if>
+            <if test="createDate != null ">#{createDate},</if>
+            <if test="updateDate != null ">#{updateDate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProcessTaskConfig" parameterType="ProcessTaskConfig">
+        update process_task_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="processId != null  and processId != ''">process_id = #{processId},</if>
+            <if test="taskNum != null ">task_num = #{taskNum},</if>
+            <if test="taskKey != null  and taskKey != ''">task_key = #{taskKey},</if>
+            <if test="taskName != null  and taskName != ''">task_name = #{taskName},</if>
+            <if test="taskType != null  and taskType != ''">task_type = #{taskType},</if>
+            <if test="taskUserType != null  and taskUserType != ''">task_user_type = #{taskUserType},</if>
+            <if test="taskSignType != null  and taskSignType != ''">task_sign_type = #{taskSignType},</if>
+            <if test="taskRejectType != null  and taskRejectType != ''">task_reject_type = #{taskRejectType},</if>
+            <if test="taskUsers != null  and taskUsers != ''">task_users = #{taskUsers},</if>
+            <if test="taskPosts != null  and taskPosts != ''">task_posts = #{taskPosts},</if>
+            <if test="taskRoles != null  and taskRoles != ''">task_roles = #{taskRoles},</if>
+            <if test="taskButtons != null  and taskButtons != ''">task_buttons = #{taskButtons},</if>
+            <if test="createUser != null ">create_user = #{createUser},</if>
+            <if test="updateUser != null ">update_user = #{updateUser},</if>
+            <if test="createDate != null ">create_date = #{createDate},</if>
+            <if test="updateDate != null ">update_date = #{updateDate},</if>
+        </trim>
+        where process_task_id = #{processTaskId}
+    </update>
+
+    <delete id="deleteProcessTaskConfigById" parameterType="String">
+        delete from process_task_config where process_task_id = #{processTaskId}
+    </delete>
+
+    <delete id="deleteProcessTaskConfigByIds" parameterType="String">
+        delete from process_task_config where process_task_id in 
+        <foreach item="processTaskId" collection="array" open="(" separator="," close=")">
+            #{processTaskId}
+        </foreach>
+    </delete>
+
+
+	<insert id="insertProcessTaskConfigBatch" parameterType="ProcessTaskConfig">
+		INSERT INTO process_task_config (
+		process_task_id,
+		process_id,
+		task_key,
+		task_num,
+		task_name,
+		task_type,
+		task_user_type,
+		task_sign_type,
+		task_users,
+		task_posts,
+		task_roles,
+		task_reject_type,
+		task_buttons,
+		create_user,
+		update_user,
+		create_date,
+		update_date
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.processTaskId},
+			#{item.processId},
+			#{item.taskKey},
+			#{item.taskNum},
+			#{item.taskName},
+			#{item.taskKey},
+			#{item.taskUserType},
+			#{item.taskSignType},
+			#{item.taskUsers},
+			#{item.taskPosts},
+			#{item.taskRoles},
+			#{item.taskRejectType},
+			#{item.taskButtons},
+			#{item.createUser},
+			#{item.updateUser},
+			#{item.createDate},
+			#{item.updateDate}
+			)
+		</foreach>
+	</insert>
+
+</mapper>
